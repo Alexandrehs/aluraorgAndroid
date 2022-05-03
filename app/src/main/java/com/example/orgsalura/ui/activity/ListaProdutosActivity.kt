@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgsalura.R
 import com.example.orgsalura.dao.ProdutosDAO
+import com.example.orgsalura.databinding.ListaProdutosActivityBinding
 import com.example.orgsalura.ui.recycledview.adapter.RecyclerViewAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ListaProdutosActivity : AppCompatActivity() {
+    private lateinit var binding : ListaProdutosActivityBinding
     private val produtosDAO = ProdutosDAO()
     private val recyclerViewAdapter = RecyclerViewAdapter(
         context = this,
@@ -18,7 +20,8 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.lista_produtos_activity)
+        binding = ListaProdutosActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         configuraAdapter()
         configuraFAB()
     }
@@ -29,11 +32,11 @@ class ListaProdutosActivity : AppCompatActivity() {
     }
 
     private fun configuraAdapter() {
-        findViewById<RecyclerView>(R.id.lista_produtos_activity_recyclerView).adapter = recyclerViewAdapter
+        binding.listaProdutosActivityRecyclerView.adapter = recyclerViewAdapter
     }
 
     private fun configuraFAB() {
-        findViewById<FloatingActionButton>(R.id.lista_produtos_activity_fab).setOnClickListener {
+        binding.listaProdutosActivityFab.setOnClickListener {
             vaiParaFormulario()
         }
     }

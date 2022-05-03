@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgsalura.R
+import com.example.orgsalura.databinding.ProdutoItemBinding
 import com.example.orgsalura.model.Produto
 
 class RecyclerViewAdapter(
@@ -15,17 +16,20 @@ class RecyclerViewAdapter(
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private val produtos = mutableListOf<Produto>()
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val title = binding.produtoItemTitle
+        private val descricao = binding.produtoItemDescricao
+        private val preco = binding.produtoItemPreco
         fun vinculation(produto: Produto) {
-            itemView.findViewById<TextView>(R.id.produto_item_title).text = produto.title
-            itemView.findViewById<TextView>(R.id.produto_item_descricao).text = produto.descricao
-            itemView.findViewById<TextView>(R.id.produto_item_preco).text = produto.preco.toPlainString()
+            title.text = produto.title
+            descricao.text = produto.descricao
+            preco.text = produto.preco.toPlainString()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.produto_item, parent, false)
-        return ViewHolder(view)
+        val binding = ProdutoItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
