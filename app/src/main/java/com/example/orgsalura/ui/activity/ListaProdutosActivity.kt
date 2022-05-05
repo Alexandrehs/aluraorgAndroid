@@ -2,13 +2,11 @@ package com.example.orgsalura.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import com.example.orgsalura.R
 import com.example.orgsalura.dao.ProdutosDAO
 import com.example.orgsalura.databinding.ListaProdutosActivityBinding
 import com.example.orgsalura.ui.recycledview.adapter.RecyclerViewAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ListaProdutosActivity : AppCompatActivity() {
     private lateinit var binding : ListaProdutosActivityBinding
@@ -16,6 +14,9 @@ class ListaProdutosActivity : AppCompatActivity() {
     private val recyclerViewAdapter = RecyclerViewAdapter(
         context = this,
         produtosDAO.listaTodos(),
+        quandoClicaNoItemListener = {
+            Log.i("teste", "clicouaqui: ${it.title}")
+        }
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,10 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     private fun configuraAdapter() {
         binding.listaProdutosActivityRecyclerView.adapter = recyclerViewAdapter
+        recyclerViewAdapter.quandoClicaNoItemListener = {
+
+        }
+
     }
 
     private fun configuraFAB() {
